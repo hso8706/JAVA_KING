@@ -2,11 +2,10 @@ package com.example.demo.task.service;
 
 
 import com.example.demo.task.entity.Task;
+import com.example.demo.task.exception.TaskErrorCode;
+import com.example.demo.task.exception.TaskException;
 import com.example.demo.task.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,16 +16,23 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
 
-    public Page<Task> findAllTask(Long memberId, int page, int size) {
+    public Task createTask(Task task) {
 
-        return makeTaskPage(memberId, page, size);
+        Task savedTask = taskRepository.save(task);
+
+        return savedTask;
     }
 
-    /*
-    query dsl 학습 필요
-     */
-    private Page<Task> makeTaskPage(Long memberId, int page, int size) {
+    public Task findTask(Long taskId) {
 
-        return taskRepository.findAllByMemberId(memberId, PageRequest.of(page, size, Sort.by("id").descending()));
+        return findVerifiedTask(taskId);
     }
+
+    private Task findVerifiedTask(Long taskId) {
+
+        return taskRepository.findById(taskId).orElseThrow(
+                () -> new TaskException(TaskErrorCode.NOT_FOUND_TASK)
+        );
+    }
+
 }

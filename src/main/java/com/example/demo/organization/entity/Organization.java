@@ -1,14 +1,11 @@
-package com.example.demo.epic.entity;
+package com.example.demo.organization.entity;
 
 import com.example.demo.common.model.BaseTimeEntity;
-import com.example.demo.organization.entity.Organization;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,25 +13,19 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Epic extends BaseTimeEntity {
+public class Organization extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "epic_id")
-    private Long epicId;
-
-
-//    @ManyToOne
-//    @JoinColumn(name = "organization_id", nullable = false)
-//    private Organization organization;
     @Column(name = "organization_id")
     private Long organizationId;
 
     @Column(nullable = false)
-    private String title;
+    private String department;
 
-    private String file;
+    @Column(nullable = false)
+    private String team;
 
-    private String approvalCnt;
-    private String totalCnt;
+    @Column(nullable = false)
+    private String unit;
 }

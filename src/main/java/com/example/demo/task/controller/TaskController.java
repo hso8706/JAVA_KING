@@ -7,11 +7,7 @@ import com.example.demo.task.dto.TaskCreationRequestDto;
 import com.example.demo.task.dto.TaskDetailResponseDto;
 import com.example.demo.task.entity.Task;
 import com.example.demo.task.service.TaskService;
-import jakarta.validation.constraints.Positive;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,19 +35,18 @@ public class TaskController {
     @PostMapping
     public ResponseEntity<?> taskCreation(@RequestBody TaskCreationRequestDto request){
 
-        return ResponseFactory.success("task Creation");
+        Task result = taskService.createTask(TaskCreationRequestDto.to(request));
+
+        return ResponseFactory.success("task Creation", TaskDetailResponseDto.from(result));
     }
 
-    /*
-    # 필터링 목록 제공
-    - 첫 화면 시작 시 호출함.
-    - 전체 필터링 목록을 제공하여 +버튼 누르는 경우 해당 값들을 띄움
-    - 항목 선택 후 이후 추가로 필터링 목록을 조회할 경우, 프론트에서 상태를 체크하여 체크된 항목을 제외하고 목록을 띄움
-     */
-    @GetMapping("/filters")
-    public ResponseEntity<?> filterList(){
+    //상세조회
+    @GetMapping("/{task-id}")
+    public ResponseEntity<?> taskDetail(@PathVariable("task-id") Long taskId){
 
-        return ResponseFactory.success("filter List", FilterListResponseDto.toDtoList());
+        Task result = taskService.findTask(taskId);
+
+        return ResponseFactory.success("task Detail", TaskDetailResponseDto.from(result));
     }
 
     /*
@@ -66,13 +61,6 @@ public class TaskController {
         return ResponseFactory.success("task List");
     }
 
-    //상세조회
-    @GetMapping("/{task-id}")
-    public ResponseEntity<?> taskDetails(@PathVariable("task-id") Long taskId){
-
-        return ResponseFactory.success("task details");
-    }
-
     //수정
     @PatchMapping("/{task-id}")
     public ResponseEntity<?> taskModification(@PathVariable("task-id") Long taskId){
@@ -85,5 +73,18 @@ public class TaskController {
     public ResponseEntity<?> taskRemoval(@PathVariable("task-id") Long taskId){
 
         return ResponseFactory.success("task Removal");
+    }
+
+
+    /*
+    # 필터링 목록 제공
+    - 첫 화면 시작 시 호출함.
+    - 전체 필터링 목록을 제공하여 +버튼 누르는 경우 해당 값들을 띄움
+    - 항목 선택 후 이후 추가로 필터링 목록을 조회할 경우, 프론트에서 상태를 체크하여 체크된 항목을 제외하고 목록을 띄움
+     */
+    @GetMapping("/filters")
+    public ResponseEntity<?> filterList(){
+
+        return ResponseFactory.success("filter List", FilterListResponseDto.toDtoList());
     }
 }

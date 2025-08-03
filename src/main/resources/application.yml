@@ -11,7 +11,13 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    defer-datasource-initialization: true # h2 초기화를 위함
   h2:
     console:
       enabled: true
       path: /h2-console
+  # h2 사용시 member, organization 초기화를 위함.
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:default.sql

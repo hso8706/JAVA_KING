@@ -1,4 +1,4 @@
-package com.example.demo.epic.entity;
+package com.example.demo.report.entity;
 
 import com.example.demo.common.model.BaseTimeEntity;
 import com.example.demo.organization.entity.Organization;
@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,25 +17,26 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Epic extends BaseTimeEntity {
+public class Report extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "epic_id")
-    private Long epicId;
+    @Column(name = "report_id")
+    private Long reportId;
 
-
-//    @ManyToOne
-//    @JoinColumn(name = "organization_id", nullable = false)
-//    private Organization organization;
     @Column(name = "organization_id")
     private Long organizationId;
 
     @Column(nullable = false)
     private String title;
 
-    private String file;
+    @Column(columnDefinition = "TEXT")
+    private String lastWeekSummary;
 
-    private String approvalCnt;
-    private String totalCnt;
+    @Column(columnDefinition = "TEXT")
+    private String thisWeekPlan;
+
+    private String createdYear;
+    private String createdWeek;
+
 }

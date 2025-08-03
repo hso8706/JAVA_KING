@@ -21,36 +21,47 @@ public class MemberController {
     @PostMapping
     public ResponseEntity<?> memberCreation(){
 
+
+
         return ResponseFactory.success("member Creation");
     }
 
-    //전체조회
+    //로그인
     @GetMapping
-    public ResponseEntity<?> memberList(){
+    public ResponseEntity<?> memberLogin(){
 
-        return ResponseFactory.success("member List");
+
+
+        return ResponseFactory.success("member Login");
     }
 
-    //상세조회
-    @GetMapping("/{member-id}")
-    public ResponseEntity<?> memberDetails(@PathVariable("member-id") Long memberId){
-
-        return ResponseFactory.success("member details");
-    }
-
-    //수정
-    @PatchMapping("/{member-id}")
-    public ResponseEntity<?> memberModification(@PathVariable("member-id") Long memberId){
-
-        return ResponseFactory.success("member Modification");
-    }
-
-    //삭제
-    @DeleteMapping("/{member-id}")
-    public ResponseEntity<?> memberRemoval(@PathVariable("member-id") Long memberId){
-
-        return ResponseFactory.success("member Removal");
-    }
+//    //전체조회
+//    @GetMapping
+//    public ResponseEntity<?> memberList(){
+//
+//        return ResponseFactory.success("member List");
+//    }
+//
+//    //상세조회
+//    @GetMapping("/{member-id}")
+//    public ResponseEntity<?> memberDetails(@PathVariable("member-id") Long memberId){
+//
+//        return ResponseFactory.success("member details");
+//    }
+//
+//    //수정
+//    @PatchMapping("/{member-id}")
+//    public ResponseEntity<?> memberModification(@PathVariable("member-id") Long memberId){
+//
+//        return ResponseFactory.success("member Modification");
+//    }
+//
+//    //삭제
+//    @DeleteMapping("/{member-id}")
+//    public ResponseEntity<?> memberRemoval(@PathVariable("member-id") Long memberId){
+//
+//        return ResponseFactory.success("member Removal");
+//    }
 
 
 }
