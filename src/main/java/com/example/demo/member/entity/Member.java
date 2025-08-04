@@ -26,9 +26,6 @@ public class Member extends BaseTimeEntity {
     @Column(name = "member_id")
     private Long memberId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "organization_id", nullable = false)
-//    private Organization organization;
     @Column(name = "organization_id")
     private Long organizationId;
 

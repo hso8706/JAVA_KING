@@ -2,11 +2,13 @@ package com.example.demo.task.controller;
 
 import com.example.demo.common.response.ResponseFactory;
 import com.example.demo.task.dto.FilterListResponseDto;
-import com.example.demo.task.dto.FilterRequestDto;
+import com.example.demo.task.dto.TaskListRequestDto;
 import com.example.demo.task.dto.TaskCreationRequestDto;
 import com.example.demo.task.dto.TaskDetailResponseDto;
 import com.example.demo.task.entity.Task;
 import com.example.demo.task.service.TaskService;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -40,7 +41,9 @@ public class TaskController {
         return ResponseFactory.success("task Creation", TaskDetailResponseDto.from(result));
     }
 
-    //상세조회
+    /*
+    # Task 상세조회
+     */
     @GetMapping("/{task-id}")
     public ResponseEntity<?> taskDetail(@PathVariable("task-id") Long taskId){
 
@@ -55,10 +58,13 @@ public class TaskController {
     - default 필터링은 member 의 부, 팀까지만 제공된 상태로 조회해야겠다.
      */
     @GetMapping
-    public ResponseEntity<?> taskList(@RequestBody FilterRequestDto filterRequestDto){
-        
+    public ResponseEntity<?> taskList(@RequestBody TaskListRequestDto taskListRequestDto){
 
-        return ResponseFactory.success("task List");
+        List<TaskDetailResponseDto> result = taskService.findAllTasks(taskListRequestDto.getMemberId()).stream()
+                .map(TaskDetailResponseDto::from)
+                .toList();
+
+        return ResponseFactory.success("task List",result);
     }
 
     //수정

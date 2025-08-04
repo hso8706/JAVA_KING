@@ -21,3 +21,10 @@ VALUES
     ('IT경영정보부', 'IT회계정보팀', '연결결산계', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     ('IT경영정보부', 'IT회계정보팀', '금융상품평가계', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     ('IT경영정보부', 'IT회계정보팀', '재무회계계', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+
+INSERT INTO member (organization_id, name, id_number, grade, role, status, create_at, update_at)
+VALUES (10, '윤원진', '24313333', 'GRADE_M', 'APPROVER', 'UNAVAILABLE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+       (11, '송하경', '24316666', 'GRADE_4', 'APPROVER', 'AVAILABLE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+       (16, '하정호', '24310590', 'GRADE_5', 'EMPLOYEE', 'AVAILABLE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
