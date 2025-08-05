@@ -20,7 +20,7 @@ public class OrganizationService {
     private final MemberRepository memberRepository;
     private final OrganizationRepository organizationRepository;
 
-    public Organization findMyOrganization(Long memberId) {
+    public Organization findMyOrganizationByMemberId (Long memberId) {
         Member findVerifiedMember = memberRepository.findByMemberId(memberId)
                                         .orElseThrow(() -> new MemberException(MemberErrorCode.NOT_FOUND_MEMBER));
 
@@ -28,4 +28,8 @@ public class OrganizationService {
                                      .orElseThrow(() -> new OrganizationException(OrganizationErrorCode.NOT_FOUND_ORGANIZATION));
     }
 
+    public Organization findOrganizationIdByDepartmentAndTeam (String department, String team) {
+        return organizationRepository.findByDepartmentAndTeam(department, team)
+                                     .orElseThrow(() -> new OrganizationException(OrganizationErrorCode.NOT_FOUND_ORGANIZATION));
+    }
 }

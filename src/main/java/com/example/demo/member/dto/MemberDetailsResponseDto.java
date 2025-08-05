@@ -1,19 +1,24 @@
 package com.example.demo.member.dto;
 
 import com.example.demo.member.entity.Grade;
+import com.example.demo.member.entity.Member;
 import com.example.demo.member.entity.Role;
 import com.example.demo.member.entity.Status;
+import com.example.demo.organization.entity.Organization;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Builder;
+import lombok.Getter;
 
+@Getter
+@JsonNaming(SnakeCaseStrategy.class)
 public class MemberDetailsResponseDto {
 
     private Long memberId;
-
     private Long organizationId;
     private String department;
     private String team;
     private String unit;
-
     private String name;
     private Grade grade;
     private Role role;
@@ -34,4 +39,18 @@ public class MemberDetailsResponseDto {
         this.status = status;
     }
 
+    public static Object from(Member member, Organization organization) {
+
+        return MemberDetailsResponseDto.builder()
+                                       .memberId(member.getMemberId())
+                                       .organizationId(member.getOrganizationId())
+                                       .department(organization.getDepartment())
+                                       .team(organization.getTeam())
+                                       .unit(organization.getUnit())
+                                       .name(member.getName())
+                                       .grade(member.getGrade())
+                                       .role(member.getRole())
+                                       .status(member.getStatus())
+                                       .build();
+    }
 }

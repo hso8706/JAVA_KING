@@ -41,7 +41,7 @@ public class TaskService {
 
     public List<Task> findAllTasks (Long memberId) {
 
-        Organization findVerifiedMyOrganizationId = organizationService.findMyOrganization(memberId);
+        Organization findVerifiedMyOrganizationId = organizationService.findMyOrganizationByMemberId(memberId);
 
         return taskRepository.findAllByOrganizationId(
                 findVerifiedMyOrganizationId.getOrganizationId());
